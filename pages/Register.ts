@@ -23,18 +23,18 @@ export class Register{
 
     async goToRegisterPage(){
         let homePage = new HomePage(this.page);
-        homePage.goToRegisterPage();
+        await homePage.goToRegisterPage();
     }
 
     async fillPersonalDetails(){
-        this.locators.firstName.fill("Test");
-        this.locators.lastName.fill("Test");
-        this.locators.email.fill("Test");
-        this.locators.phone.fill("Test");
+        await this.locators.firstName.fill("Test");
+        await this.locators.lastName.fill("Test");
+        await this.locators.email.fill("Test");
+        await this.locators.phone.fill("Test");
     }
     async fillPasswords(){
         const password = "Test@123"
-        this.locators.password.fill(password);
-        this.locators.confirmPassword.fill(password);
+        await this.locators.password.fill(password);
+        await this.locators.confirmPassword.fill(password);
     }
 }
