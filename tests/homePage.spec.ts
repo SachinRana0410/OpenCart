@@ -1,8 +1,8 @@
 import {Page, expect, test} from "@playwright/test";
-import { HomePage } from "../pages/Homepage"; 
+import { HomePage } from "../pages/HomePage"; 
 import { TestConfig } from "../test.config";     
 
-test.only("Go to HomePage and verify the title of the page", async ({page})=>{
+test("Go to HomePage and verify the title of the page", async ({page})=>{
 
     let config = new TestConfig();
     const homePage = new HomePage(page);

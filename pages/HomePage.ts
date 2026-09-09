@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { homePageLocators } from "../locators/homepage";
 
 
@@ -25,5 +25,11 @@ export class HomePage{
 
         await this.locators.myAccount.click(); 
         await this.locators.register.click();
+    }
+
+    async goToLoginPage(){
+
+        await this.locators.myAccount.click(); 
+        await this.locators.login.click();
     }
 }
