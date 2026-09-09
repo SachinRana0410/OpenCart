@@ -29,12 +29,18 @@ export class Register{
     async fillPersonalDetails(){
         await this.locators.firstName.fill("Test");
         await this.locators.lastName.fill("Test");
-        await this.locators.email.fill("Test");
+        await this.locators.email.fill("Test@test.com");
         await this.locators.phone.fill("Test");
     }
     async fillPasswords(){
         const password = "Test@123"
         await this.locators.password.fill(password);
         await this.locators.confirmPassword.fill(password);
+        await this.locators.agreeCheckBox.check();
+    }
+
+    async clickSubmit(){
+        
+        await this.locators.continue.click();
     }
 }
