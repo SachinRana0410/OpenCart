@@ -16,6 +16,6 @@ test("Register with all the mandatory fields", async({page})=>{
     await register.goToRegisterPage();
     await register.fillPersonalDetails();
     await register.fillPasswords();
-
+    await register.clickSubmit();
 
 })

@@ -23,7 +23,7 @@ export class HomePage{
 
     async goToRegisterPage(){
 
-        await this.locators.myAccount.click();  
+        await this.locators.myAccount.click(); 
         await this.locators.register.click();
     }
 }
