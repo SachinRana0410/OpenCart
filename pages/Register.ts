@@ -7,10 +7,12 @@ export class Register{
 
     private readonly page : Page;
     private readonly locators;
+    private readonly homePage : HomePage
 
     constructor(page : Page){
         this.page = page;
         this.locators = register(page);
+        this.homePage = new HomePage(page);
     }
 
     async isRegisterPageExist():Promise<boolean>{
@@ -22,8 +24,8 @@ export class Register{
     }
 
     async goToRegisterPage(){
-        let homePage = new HomePage(this.page);
-        await homePage.goToRegisterPage();
+        
+        await this.homePage.goToRegisterPage();
     }
 
     async fillPersonalDetails(){
