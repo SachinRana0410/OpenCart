@@ -21,6 +21,9 @@ export class LoginPage{
         await this.homePage.goToLoginPage();
     }
 
+    async doLogin(email:string, password:string):Promise<void>;
+    async doLogin():Promise<void>;
+
     async doLogin(email?: string, password?: string): Promise<void> {
         const jsonPath = 'TestData/validLoginData.json';
         const loginData = JSON.parse(readFileSync(jsonPath, "utf-8"));
