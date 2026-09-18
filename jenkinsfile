@@ -87,7 +87,8 @@ pipeline {
 			steps {
 				sh '''
 					echo "Installing Playwright browsers..."
-					npx playwright install
+					npx playwright install chromium
+                    npx playwright install firefox
 				'''
 			}
 		}
