@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:all":"npx playwright test",
+    "test:smoke":"npx playwright test --grep @smoke",
+    "test:functional":"npx playwright test --grep @functional",
+    "test:negative":"npx playwright test --grep @negative"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@playwright/test": "^1.63.0",
-    "@types/node": "^26.4.1"
+    "@playwright/test": "^1.40.1",
+    "@types/node": "^26.5.1"
   }
 }
