@@ -11,7 +11,7 @@ export const test = base.extend<Fixture>({
     userData: async ({}, use)=>{
         const data = {
             email : "guptaprince.ec102@gmail.com",
-            password : "Nextiswh@t123",
+            password : "Nextiswh@t1234",
         };
         await use(data);
     }

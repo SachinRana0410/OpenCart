@@ -1,0 +1,204 @@
+// Jenkinsfile.mac 
+// Declarative Jenkins pipeline for macOS build agents 
+// Pipeline Stages: 
+// 1. Checkout 
+// 2. Install Dependencies 
+// 3. Install Playwright Browsers 
+// 4. Configure Environment 
+// 5. Run Playwright Tests 
+// 6. Publish Reports 
+// 7. Email Notification 
+// 8. Cleanup pipeline { agent any tools { git 'Default' } options { timestamps() } parameters { choice( name: 'TEST_SUITE', choices: [ 'test:all', 'test:smoke', 'test:functional', 'test:negative' ], description: 'Select the test suite to run' ) choice( name: 'BROWSER', choices: [ 'chromium', 'firefox', 'webkit' ], description: 'Select the browser for tests' ) choice( name: 'MODE', choices: [ 'headless', 'headed' ], description: 'Run tests in headless or headed mode' ) } environment { NODE_ENV = 'test' CI = '1' // Prevent macOS GUI applications from causing issues // when Jenkins runs as a background service. DISPLAY = '' } stages { // -------------------------------------------------- // CHECKOUT // -------------------------------------------------- stage('🔄 Checkout') { steps { checkout scm } } // -------------------------------------------------- // NODE / NPM VERSION // -------------------------------------------------- stage('🔍 Verify Node & NPM') { steps { sh ''' echo "Operating System:" uname -a echo "Node version:" node --version echo "NPM version:" npm --version echo "Working directory:" pwd ''' } } // -------------------------------------------------- // INSTALL NPM DEPENDENCIES // -------------------------------------------------- stage('📦 Install Dependencies') { steps { sh ''' echo "Installing npm dependencies..." npm ci ''' } } // -------------------------------------------------- // INSTALL PLAYWRIGHT BROWSERS // -------------------------------------------------- stage('🤖 Install Playwright Browsers') { steps { sh ''' echo "Installing Playwright browsers..." npx playwright install ''' } } // -------------------------------------------------- // CREATE .ENV // -------------------------------------------------- stage('⚙️ Configure Environment') { steps { sh ''' echo "Configuring environment..." if [ -f .env.example ]; then if [ ! -f .env ]; then cp .env.example .env echo ".env created from .env.example" else echo ".env already exists" fi else echo ".env.example not found - skipping" fi ''' } } // -------------------------------------------------- // RUN PLAYWRIGHT TESTS // -------------------------------------------------- stage('▶️ Run Playwright Tests') { steps { script { def suite = params.TEST_SUITE def browserFlag = "--project=${params.BROWSER}" def modeFlag = params.MODE == 'headed' ? '--headed' : '' echo "======================================" echo "Test Suite : ${suite}" echo "Browser : ${params.BROWSER}" echo "Mode : ${params.MODE}" echo "======================================" sh """ npm run ${suite} -- ${browserFlag} ${modeFlag} """ } } } } // ====================================================== // POST ACTIONS // ====================================================== post { // -------------------------------------------------- // ALWAYS // -------------------------------------------------- always { echo "Publishing test reports..." archiveArtifacts( artifacts: 'reports/**,custom-report/**,allure-results/**', allowEmptyArchive: true ) junit( testResults: 'reports/results.xml', allowEmptyResults: true ) allure( includeProperties: false, results: [ [path: 'allure-results'] ] ) publishHTML([ allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'reports', reportFiles: 'index.html', reportName: 'Playwright HTML Report' ]) publishHTML([ allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'custom-report', reportFiles: '*.html', reportName: 'Custom Test Report' ]) // -------------------------------------------------- // EMAIL // -------------------------------------------------- emailext( subject: "Jenkins Build: ${env.JOB_NAME} #${env.BUILD_NUMBER} - ${currentBuild.currentResult}", body: """ <h2>Playwright Test Execution Report</h2> <p> <b>Job:</b> ${env.JOB_NAME} </p> <p> <b>Build:</b> #${env.BUILD_NUMBER} </p> <p> <b>Status:</b> ${currentBuild.currentResult} </p> <p> <b>Test Suite:</b> ${params.TEST_SUITE} </p> <p> <b>Browser:</b> ${params.BROWSER} </p> <p> <b>Mode:</b> ${params.MODE} </p> <p> <a href="${env.BUILD_URL}"> Open Jenkins Build </a> | <a href="${env.BUILD_URL}Playwright_20HTML_20Report"> Open Playwright HTML Report </a> | <a href="${env.BUILD_URL}Custom_20Test_20Report"> Open Custom Report </a> </p> """, to: "RECIVER_EMAIL_ADDRESS", from: "SENDER_EMAIL_ADDRESS", replyTo: "RECIVER_EMAIL_ADDRESS", mimeType: "text/html" ) } // -------------------------------------------------- // SUCCESS CLEANUP // -------------------------------------------------- success { script { sh ''' echo "Cleaning allure-results..." if [ -d allure-results ]; then rm -rf allure-results echo "allure-results deleted" else echo "allure-results directory does not exist" fi ''' } } } }
+
+pipeline {
+	agent any
+
+	tools {
+		git 'Default'
+	}
+
+	options {
+		timestamps()
+	}
+
+	parameters {
+		choice(
+			name: 'TEST_SUITE',
+			choices: [
+				'test:all',
+				'test:smoke',
+				'test:functional',
+				'test:negative'
+			],
+			description: 'Select the test suite to run'
+		)
+		choice(
+			name: 'BROWSER',
+			choices: ['chromium', 'firefox', 'webkit'],
+			description: 'Select the browser for tests'
+		)
+		choice(
+			name: 'MODE',
+			choices: ['headless', 'headed'],
+			description: 'Run tests in headless or headed mode'
+		)
+	}
+
+	environment {
+		NODE_ENV = 'test'
+		CI = '1'
+		// Prevent macOS GUI applications from causing issues
+		// when Jenkins runs as a background service.
+		DISPLAY = ''
+	}
+
+	stages {
+		stage('🔄 Checkout') {
+			steps {
+				checkout scm
+			}
+		}
+
+		stage('🔍 Verify Node & NPM') {
+			steps {
+				sh '''
+					echo "Operating System:"
+					uname -a
+					echo "Node version:"
+					node --version
+					echo "NPM version:"
+					npm --version
+					echo "Working directory:"
+					pwd
+				'''
+			}
+		}
+
+		stage('📦 Install Dependencies') {
+			steps {
+				sh '''
+					echo "Installing npm dependencies..."
+					npm ci
+				'''
+			}
+		}
+
+		stage('🤖 Install Playwright Browsers') {
+			steps {
+				sh '''
+					echo "Installing Playwright browsers..."
+					npx playwright install
+				'''
+			}
+		}
+
+		stage('⚙️ Configure Environment') {
+			steps {
+				sh '''
+					echo "Configuring environment..."
+					if [ -f .env.example ]; then
+						if [ ! -f .env ]; then
+							cp .env.example .env
+							echo ".env created from .env.example"
+						else
+							echo ".env already exists"
+						fi
+					else
+						echo ".env.example not found - skipping"
+					fi
+				'''
+			}
+		}
+
+		stage('▶️ Run Playwright Tests') {
+			steps {
+				script {
+					def suite = params.TEST_SUITE
+					def browserFlag = "--project=${params.BROWSER}"
+					def modeFlag = params.MODE == 'headed' ? '--headed' : ''
+
+					echo "======================================"
+					echo "Test Suite : ${suite}"
+					echo "Browser    : ${params.BROWSER}"
+					echo "Mode       : ${params.MODE}"
+					echo "======================================"
+
+					sh """
+						npm run ${suite} -- ${browserFlag} ${modeFlag}
+					"""
+				}
+			}
+		}
+	}
+
+	post {
+		always {
+			echo 'Publishing test reports...'
+
+			archiveArtifacts(
+				artifacts: 'reports/**,custom-report/**,allure-results/**',
+				allowEmptyArchive: true
+			)
+			junit(
+				testResults: 'reports/results.xml',
+				allowEmptyResults: true
+			)
+			allure(
+				includeProperties: false,
+				results: [[path: 'allure-results']]
+			)
+			publishHTML([
+				allowMissing: true,
+				alwaysLinkToLastBuild: true,
+				keepAll: true,
+				reportDir: 'reports',
+				reportFiles: 'index.html',
+				reportName: 'Playwright HTML Report'
+			])
+			publishHTML([
+				allowMissing: true,
+				alwaysLinkToLastBuild: true,
+				keepAll: true,
+				reportDir: 'custom-report',
+				reportFiles: '*.html',
+				reportName: 'Custom Test Report'
+			])
+
+			emailext(
+				subject: "Jenkins Build: ${env.JOB_NAME} #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
+				body: """
+					<h2>Playwright Test Execution Report</h2>
+					<p><b>Job:</b> ${env.JOB_NAME}</p>
+					<p><b>Build:</b> #${env.BUILD_NUMBER}</p>
+					<p><b>Status:</b> ${currentBuild.currentResult}</p>
+					<p><b>Test Suite:</b> ${params.TEST_SUITE}</p>
+					<p><b>Browser:</b> ${params.BROWSER}</p>
+					<p><b>Mode:</b> ${params.MODE}</p>
+					<p>
+						<a href="${env.BUILD_URL}">Open Jenkins Build</a> |
+						<a href="${env.BUILD_URL}Playwright_20HTML_20Report">Open Playwright HTML Report</a> |
+						<a href="${env.BUILD_URL}Custom_20Test_20Report">Open Custom Report</a>
+					</p>
+				""",
+				to: 'RECIVER_EMAIL_ADDRESS',
+				from: 'SENDER_EMAIL_ADDRESS',
+				replyTo: 'RECIVER_EMAIL_ADDRESS',
+				mimeType: 'text/html'
+			)
+		}
+
+		success {
+			script {
+				sh '''
+					echo "Cleaning allure-results..."
+					if [ -d allure-results ]; then
+						rm -rf allure-results
+						echo "allure-results deleted"
+					else
+						echo "allure-results directory does not exist"
+					fi
+				'''
+			}
+		}
+	}
+}

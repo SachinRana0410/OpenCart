@@ -2,7 +2,7 @@ import { test, expect } from "../Fixtures/userDataFixture";
 import { LoginPage } from "../pages/LoginPage";
 import { TestConfig } from "../test.config";
 
-test("Valid Login", async({page})=>{
+test("@smoke Valid Login", async({page})=>{
     let config = new TestConfig();
     let login = new LoginPage(page);
 
@@ -16,7 +16,7 @@ test("Valid Login", async({page})=>{
     
 })
 
-test("Valid Login with Fixture", async({page, userData})=>{
+test("@smoke @negative Invalid Login with Fixture", async({page, userData})=>{
     let config = new TestConfig();
     let login = new LoginPage(page);
 
@@ -26,6 +26,5 @@ test("Valid Login with Fixture", async({page, userData})=>{
 
     expect(await page.title()).toContain('My Account');
     expect(page.url()).toContain('account/account');
-    
     
 })

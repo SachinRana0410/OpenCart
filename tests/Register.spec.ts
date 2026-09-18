@@ -10,7 +10,7 @@ test.beforeAll(async()=>{
     config = new TestConfig();
 });
 
-test("Register with all the mandatory fields", async({page})=>{
+test("@smoke @functional Register with all the mandatory fields", async({page})=>{
     await page.goto(config.appUrl);
     let register = new Register(page);
     await register.goToRegisterPage();
