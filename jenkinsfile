@@ -14,7 +14,7 @@ pipeline {
 	agent any
 
 	tools {
-		git 'Default'
+		git 'myGit'
 	}
 
 	options {
