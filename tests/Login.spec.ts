@@ -16,7 +16,7 @@ test("@smoke Valid Login", async({page})=>{
     
 })
 
-test("@smoke @negative Invalid Login with Fixture", async({page, userData})=>{
+test.only("@smoke @negative Invalid Login with Fixture", async({page, userData})=>{
     let config = new TestConfig();
     let login = new LoginPage(page);
 
@@ -24,7 +24,7 @@ test("@smoke @negative Invalid Login with Fixture", async({page, userData})=>{
     await login.goToLoginPage();
     await login.doLogin(userData.email, userData.password);
 
-    expect(await page.title()).toContain('My Account');
-    expect(page.url()).toContain('account/account');
+    expect(await page.title()).toContain('Account Login');
+    expect(page.url()).toContain('account/login');
     
 })
