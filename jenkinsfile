@@ -181,9 +181,9 @@ pipeline {
 						<a href="${env.BUILD_URL}Custom_20Test_20Report">Open Custom Report</a>
 					</p>
 				""",
-				to: 'RECIVER_EMAIL_ADDRESS',
-				from: 'SENDER_EMAIL_ADDRESS',
-				replyTo: 'RECIVER_EMAIL_ADDRESS',
+				to: 'rana.sachin2006@gmail.com',
+				from: 'guptaprince.ec102@gmail.com',
+				replyTo: 'rana.sachin2006@gmail.com',
 				mimeType: 'text/html'
 			)
 		}
