@@ -33,4 +33,9 @@ export class LoginPage{
         await this.locators.loginButton.click();
     }
 
+    async getFailedLoginMsg():Promise<string | null>{
+        await this.locators.failedLoginAlert.waitFor({state:'visible'});
+        return await this.locators.failedLoginAlert.textContent();
+    }
+
 }
