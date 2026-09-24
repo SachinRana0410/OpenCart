@@ -136,18 +136,18 @@ pipeline {
 		always {
 			echo 'Publishing test reports...'
 
-			archiveArtifacts(
-				artifacts: 'reports/**,custom-report/**,allure-results/**',
-				allowEmptyArchive: true
-			)
-			junit(
-				testResults: 'reports/results.xml',
-				allowEmptyResults: true
-			)
-			allure(
-				includeProperties: false,
-				results: [[path: 'allure-results']]
-			)
+			// archiveArtifacts(
+			// 	artifacts: 'reports/**,custom-report/**,allure-results/**',
+			// 	allowEmptyArchive: true
+			// )
+			// junit(
+			// 	testResults: 'reports/results.xml',
+			// 	allowEmptyResults: true
+			// )
+			// allure(
+			// 	includeProperties: false,
+			// 	results: [[path: 'allure-results']]
+			// )
 			publishHTML([
 				allowMissing: true,
 				alwaysLinkToLastBuild: true,
@@ -156,14 +156,14 @@ pipeline {
 				reportFiles: 'index.html',
 				reportName: 'Playwright HTML Report'
 			])
-			publishHTML([
-				allowMissing: true,
-				alwaysLinkToLastBuild: true,
-				keepAll: true,
-				reportDir: 'custom-report',
-				reportFiles: '*.html',
-				reportName: 'Custom Test Report'
-			])
+			// publishHTML([
+			// 	allowMissing: true,
+			// 	alwaysLinkToLastBuild: true,
+			// 	keepAll: true,
+			// 	reportDir: 'custom-report',
+			// 	reportFiles: '*.html',
+			// 	reportName: 'Custom Test Report'
+			// ])
 
 			emailext(
 				subject: "Jenkins Build: ${env.JOB_NAME} #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
@@ -181,9 +181,9 @@ pipeline {
 						<a href="${env.BUILD_URL}Custom_20Test_20Report">Open Custom Report</a>
 					</p>
 				""",
-				to: 'rana.sachin2006@gmail.com',
-				from: 'guptaprince.ec102@gmail.com',
-				replyTo: 'rana.sachin2006@gmail.com',
+				to: 'guptaprince.ec102@gmail.com',
+				// from: 'guptaprince.ec102@gmail.com',
+				// replyTo: 'rana.sachin2006@gmail.com',
 				mimeType: 'text/html'
 			)
 		}
