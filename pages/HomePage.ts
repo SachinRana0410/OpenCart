@@ -4,13 +4,13 @@ import { homePageLocators } from "../locators/homepage";
 
 export class HomePage{
 
-    private readonly page: Page;
-    private readonly locators;
+    protected readonly page: Page;
+    private readonly homeLocators;
 
     constructor(page:Page){
 
         this.page = page;
-        this.locators = homePageLocators(page);
+        this.homeLocators = homePageLocators(page);
     }
 
     async isHomePageExist():Promise<boolean>{
@@ -23,13 +23,13 @@ export class HomePage{
 
     async goToRegisterPage(){
 
-        await this.locators.myAccount.click(); 
-        await this.locators.register.click();
+        await this.homeLocators.myAccount.click(); 
+        await this.homeLocators.register.click();
     }
 
     async goToLoginPage(){
 
-        await this.locators.myAccount.click(); 
-        await this.locators.login.click();
+        await this.homeLocators.myAccount.click(); 
+        await this.homeLocators.login.click();
     }
 }
