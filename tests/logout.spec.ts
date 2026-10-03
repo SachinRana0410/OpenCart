@@ -25,8 +25,8 @@ test.describe("Logout", () => {
 
         // 3. Verify the logout confirmation page is displayed.
         await expect(page).toHaveURL(/route=account\/logout/);
-        await expect(logoutPage.locators.logoutHeading).toBeVisible();
-        await expect(logoutPage.locators.continueLink).toBeVisible();
+        await expect(logoutPage.logoutLocators.logoutHeading).toBeVisible();
+        await expect(logoutPage.logoutLocators.continueLink).toBeVisible();
     });
 
     test("TC_LG002 Verify account access is unavailable after logout", async ({ page }) => {
@@ -42,7 +42,7 @@ test.describe("Logout", () => {
         await logoutPage.openAccountMenu();
 
         // 4. Verify the unauthenticated account options are displayed.
-        await expect(logoutPage.locators.loginLink).toBeVisible();
-        await expect(logoutPage.locators.registerLink).toBeVisible();
+        await expect(logoutPage.logoutLocators.loginLink).toBeVisible();
+        await expect(logoutPage.logoutLocators.registerLink).toBeVisible();
     });
 });
