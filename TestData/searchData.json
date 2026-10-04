@@ -1,0 +1,7 @@
+{
+    "searchProducts": {
+        "existingProduct": "MacBook",
+        "nonExistingProduct": "Jeera",
+        "multipleProducts": "Mac"
+    }
+}
