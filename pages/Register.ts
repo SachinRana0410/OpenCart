@@ -3,16 +3,13 @@ import { register } from "../locators/register";
 import { HomePage } from "./HomePage";
 
 
-export class Register{
+export class Register extends HomePage{
 
-    private readonly page : Page;
-    private readonly locators;
-    private readonly homePage : HomePage
+    private readonly registerLocators;
 
     constructor(page : Page){
-        this.page = page;
-        this.locators = register(page);
-        this.homePage = new HomePage(page);
+        super(page);
+        this.registerLocators = register(page);
     }
 
     async isRegisterPageExist():Promise<boolean>{
@@ -23,26 +20,22 @@ export class Register{
         return false;
     }
 
-    async goToRegisterPage(){
-        
-        await this.homePage.goToRegisterPage();
-    }
 
     async fillPersonalDetails(){
-        await this.locators.firstName.fill("Test");
-        await this.locators.lastName.fill("Test");
-        await this.locators.email.fill("Test@test.com");
-        await this.locators.phone.fill("Test");
+        await this.registerLocators.firstName.fill("Test");
+        await this.registerLocators.lastName.fill("Test");
+        await this.registerLocators.email.fill("Test@test.com");
+        await this.registerLocators.phone.fill("Test");
     }
     async fillPasswords(){
         const password = "Test@123"
-        await this.locators.password.fill(password);
-        await this.locators.confirmPassword.fill(password);
-        await this.locators.agreeCheckBox.check();
+        await this.registerLocators.password.fill(password);
+        await this.registerLocators.confirmPassword.fill(password);
+        await this.registerLocators.agreeCheckBox.check();
     }
 
     async clickSubmit(){
         
-        await this.locators.continue.click();
+        await this.registerLocators.continue.click();
     }
 }
