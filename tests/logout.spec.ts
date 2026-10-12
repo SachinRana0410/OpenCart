@@ -14,7 +14,7 @@ async function loginWithValidUser(page: Page): Promise<void> {
 }
 
 test.describe("Logout", () => {
-    test("TC_LG_001 Logout with a valid logged-in user", async ({ page }) => {
+    test("@functional TC_LG_001 Logout with a valid logged-in user", async ({ page }) => {
         // 1. Open the OpenCart home page and log in with valid credentials.
         await loginWithValidUser(page);
 
@@ -29,7 +29,7 @@ test.describe("Logout", () => {
         await expect(logoutPage.logoutLocators.continueLink).toBeVisible();
     });
 
-    test("TC_LG002 Verify account access is unavailable after logout", async ({ page }) => {
+    test("@functional TC_LG002 Verify account access is unavailable after logout", async ({ page }) => {
         // 1. Open the OpenCart home page and log in with valid credentials.
         await loginWithValidUser(page);
 
