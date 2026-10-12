@@ -3,7 +3,7 @@ import { HomePage } from "../pages/HomePage";
 import { TestConfig } from "../test.config";
 
 test.describe("Home Page validations", async () => {
-    test("@smoke Go to HomePage and verify the title of the page", async ({ page }) => {
+    test("@smoke TC001 - Go to HomePage and verify the title of the page", async ({ page }) => {
 
         let config = new TestConfig();
         const homePage = new HomePage(page);
