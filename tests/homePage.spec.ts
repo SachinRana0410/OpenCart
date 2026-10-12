@@ -1,13 +1,15 @@
-import {Page, expect, test} from "@playwright/test";
-import { HomePage } from "../pages/HomePage"; 
-import { TestConfig } from "../test.config";     
+import { Page, expect, test } from "@playwright/test";
+import { HomePage } from "../pages/HomePage";
+import { TestConfig } from "../test.config";
 
-test("@smoke Go to HomePage and verify the title of the page", async ({page})=>{
+test.describe("Home Page validations", async () => {
+    test("@smoke TC001 - Go to HomePage and verify the title of the page", async ({ page }) => {
 
-    let config = new TestConfig();
-    const homePage = new HomePage(page);
-    await page.goto(config.appUrl);
-    expect(await homePage.isHomePageExist()).toBeTruthy();
+        let config = new TestConfig();
+        const homePage = new HomePage(page);
+        await page.goto(config.appUrl);
+        expect(await homePage.isHomePageExist()).toBeTruthy();
 
-    await homePage.goToRegisterPage();
+        await homePage.goToRegisterPage();
+    });
 });
