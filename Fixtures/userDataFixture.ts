@@ -10,8 +10,8 @@ type Fixture = {
 export const test = base.extend<Fixture>({
     userData: async ({}, use)=>{
         const data = {
-            email : "guptaprince.ec102@gmail.com",
-            password : "Nextiswh@t1234",
+            email : process.env.EMAIL ?? '',
+            password : process.env.PASSWORD ?? '',
         };
         await use(data);
     }

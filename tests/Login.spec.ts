@@ -1,6 +1,9 @@
 import { test, expect } from "../Fixtures/userDataFixture";
 import { LoginPage } from "../pages/LoginPage";
 import { TestConfig } from "../test.config";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 test.describe("Login Functionality", async () => {
     test("@smoke TC001 - Valid Login", async ({ page }) => {
@@ -24,7 +27,7 @@ test.describe("Login Functionality", async () => {
 
         await page.goto(config.appUrl);
         await login.goToLoginPage();
-        await login.doLogin(userData.email, userData.password);
+        await login.doLogin(userData.email, userData.password+'4');
         const failedLoginMsg = await login.getFailedLoginMsg();
 
         expect(await page.title()).toContain('Account Login');
