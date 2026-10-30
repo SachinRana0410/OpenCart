@@ -1,8 +1,9 @@
 import { Page } from "@playwright/test";
 import { loginLocators } from "../locators/login";
 import { HomePage } from "./HomePage";
-// @ts-expect-error Node.js type definitions are not included in the project configuration.
 import { readFileSync } from "node:fs";
+import dotenv from 'dotenv';
+dotenv.config();
 
 export class LoginPage extends HomePage{
     private readonly loginLocators;
@@ -17,11 +18,9 @@ export class LoginPage extends HomePage{
     async doLogin():Promise<void>;
 
     async doLogin(email?: string, password?: string): Promise<void> {
-        const jsonPath = 'TestData/validLoginData.json';
-        const loginData = JSON.parse(readFileSync(jsonPath, "utf-8"));
 
-        await this.loginLocators.email.fill(email ?? loginData.email);
-        await this.loginLocators.password.fill(password ?? loginData.password);
+        await this.loginLocators.email.fill(email ?? process.env.EMAIL ?? '');
+        await this.loginLocators.password.fill(password ?? process.env.PASSWORD ?? '');
         await this.loginLocators.loginButton.click();
     }
 

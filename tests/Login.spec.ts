@@ -2,6 +2,7 @@ import { test, expect } from "../Fixtures/userDataFixture";
 import { LoginPage } from "../pages/LoginPage";
 import { TestConfig } from "../test.config";
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 test.describe("Login Functionality", async () => {
