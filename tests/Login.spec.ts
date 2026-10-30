@@ -13,7 +13,8 @@ test.describe("Login Functionality", async () => {
 
         expect(await page.title()).toContain('My Account');
         expect(page.url()).toContain('account/account');
-
+        
+        page.context().storageState({path: 'TestData/authentication.json'})
 
     })
 
