@@ -16,9 +16,8 @@ test.describe("Login Functionality", async () => {
 
         expect(await page.title()).toContain('My Account');
         expect(page.url()).toContain('account/account');
-
-
-    })
+        await page.context().storageState({ path: 'TestData/authentication.json' });
+    });
 
     test("@smoke @negative TC002 - Invalid Login with Fixture", async ({ page, userData }) => {
         let config = new TestConfig();

@@ -2,6 +2,8 @@ import { Page } from "@playwright/test";
 import { loginLocators } from "../locators/login";
 import { HomePage } from "./HomePage";
 import { readFileSync } from "node:fs";
+import dotenv from 'dotenv';
+dotenv.config();
 
 export class LoginPage extends HomePage{
     private readonly loginLocators;
