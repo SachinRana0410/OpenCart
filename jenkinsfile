@@ -113,6 +113,16 @@ pipeline {
 
 		stage('▶️ Run Playwright Tests') {
 			steps {
+				withCredentials([
+                    string(
+                        credentialsId: 'test_email',
+                        variable: 'EMAIL'
+                    ),
+                    string(
+                        credentialsId: 'test_password',
+                        variable: 'PASSWORD'
+                    )
+                ])
 				script {
 					def suite = params.TEST_SUITE
 					def browserFlag = "--project=${params.BROWSER}"
