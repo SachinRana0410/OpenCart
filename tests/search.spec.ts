@@ -1,24 +1,22 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "../Fixtures/loginFixture";
 import { Search } from "../pages/Search";
-import testData from "../testData/searchData.json"; 
-import { TestConfig } from "../test.config";
+import testData from "../TestData/searchData.json";
 
-    test.use({ storageState: "TestData/authentication.json" });
-    test.describe("Search Functionality", () => {
+
+test.describe("Search Functionality", () => {
+
     let search: Search;
 
     test.beforeEach(async ({ page }) => {
-        const config = new TestConfig();
-        await page.goto(config.appUrl);
         search = new Search(page);
     });
-
 
     test("TC001 - Validate searching with an existing Product Name", async () => {
 
         const productName = testData.searchProducts.existingProduct;
         await search.searchProduct(productName);
-        await expect(search.locators.searchResult(productName)
+        await expect(
+            search.locators.searchResult(productName)
         ).toBeVisible();
     });
 
