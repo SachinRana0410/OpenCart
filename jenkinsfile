@@ -114,29 +114,30 @@ pipeline {
 		stage('▶️ Run Playwright Tests') {
 			steps {
 				withCredentials([
-                    string(
-                        credentialsId: 'test_email',
-                        variable: 'EMAIL'
-                    ),
-                    string(
-                        credentialsId: 'test_password',
-                        variable: 'PASSWORD'
-                    )
-                ])
-				script {
-					def suite = params.TEST_SUITE
-					def browserFlag = "--project=${params.BROWSER}"
-					def modeFlag = params.MODE == 'headed' ? '--headed' : ''
+					string(
+						credentialsId: 'test_email',
+						variable: 'EMAIL'
+					),
+					string(
+						credentialsId: 'test_password',
+						variable: 'PASSWORD'
+					)
+				]) {
+					script {
+						def suite = params.TEST_SUITE
+						def browserFlag = "--project=${params.BROWSER}"
+						def modeFlag = params.MODE == 'headed' ? '--headed' : ''
 
-					echo "======================================"
-					echo "Test Suite : ${suite}"
-					echo "Browser    : ${params.BROWSER}"
-					echo "Mode       : ${params.MODE}"
-					echo "======================================"
+						echo "======================================"
+						echo "Test Suite : ${suite}"
+						echo "Browser    : ${params.BROWSER}"
+						echo "Mode       : ${params.MODE}"
+						echo "======================================"
 
-					sh """
-						npm run ${suite} -- ${browserFlag} ${modeFlag}
-					"""
+						sh """
+							npm run ${suite} -- ${browserFlag} ${modeFlag}
+						"""
+					}
 				}
 			}
 		}
