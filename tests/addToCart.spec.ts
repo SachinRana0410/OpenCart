@@ -17,12 +17,13 @@ import { TestConfig } from "../test.config";
     });
 
 
-    test("TC001 - Validate adding the product to Cart from 'Product Display' Page", async () => {
-
+    test("TC001 - Validate adding a product to Cart from search results", async () => {
         const productName = testData.searchProducts.existingProduct;
         await search.searchProduct(productName);
-        await addtocart.addProductToCart()
-        await expect(addtocart.locators.sucessAlert).toHaveText('  Success: You have added iMac to your shopping cart! ×')
+        await addtocart.addProductToCart(productName);
+        await expect(addtocart.locators.sucessAlert).toContainText(
+            `Success: You have added ${productName} to your shopping cart!`
+        );
     
     })
     }); 
