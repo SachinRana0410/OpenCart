@@ -4,16 +4,13 @@ import { addToCartLocators } from "../locators/addToCart";
 
 export class AddToCart{
     readonly locators;
-    private readonly page: Page;
 
     constructor(page: Page) {
-        this.page = page;
         this.locators = addToCartLocators(page);
     }
 
-    async addProductToCart(): Promise<void> {
-        await this.locators.addToCartButton.click();
-        await this.page.waitForTimeout(4000);
+    async addProductToCart(productName: string): Promise<void> {
+        await this.locators.addToCartButton(productName).click();
     }
 
     async getSuccessMessage(): Promise<void> {
