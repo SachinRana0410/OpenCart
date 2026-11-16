@@ -21,6 +21,10 @@ pipeline {
 		timestamps()
 	}
 
+	triggers {
+		cron('0 9 * * *')
+	}
+
 	parameters {
 		choice(
 			name: 'TEST_SUITE',
