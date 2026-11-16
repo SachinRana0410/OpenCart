@@ -1,6 +1,6 @@
 import { test, expect } from "../Fixtures/loginFixture";
 import { Search } from "../pages/Search";
-import testData from "../TestData/searchData.json";
+import testData from "../testData/searchData.json";
 
 
 test.describe("Search Functionality", () => {

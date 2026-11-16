@@ -1,12 +1,12 @@
 import { Page } from "@playwright/test";
-import { addToCartLocators } from "../locators/addToCart";
+import { productCatalogLocators } from "../locators/productCatalog";
 
 
-export class AddToCart{
+export class ProductCatalog{
     readonly locators;
 
     constructor(page: Page) {
-        this.locators = addToCartLocators(page);
+        this.locators = productCatalogLocators(page);
     }
 
     async addProductToCart(productName: string): Promise<void> {

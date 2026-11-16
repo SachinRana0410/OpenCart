@@ -32,4 +32,9 @@ export class HomePage{
         await this.homeLocators.myAccount.click(); 
         await this.homeLocators.login.click();
     }
+
+    async goToCartPage(){
+
+        await this.homeLocators.cart.click();
+    }
 }
