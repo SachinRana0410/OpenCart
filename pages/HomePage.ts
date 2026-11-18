@@ -1,11 +1,11 @@
-import { Page } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 import { homePageLocators } from "../locators/homepage";
 
 
 export class HomePage{
 
     protected readonly page: Page;
-    private readonly homeLocators;
+    protected readonly homeLocators;
 
     constructor(page:Page){
 
@@ -33,8 +33,18 @@ export class HomePage{
         await this.homeLocators.login.click();
     }
 
-    async goToCartPage(){
+    async clickCartHeader(){
 
         await this.homeLocators.cart.click();
+    }
+
+    async clickCartBlackButton(){
+        const cartBlackButton = this.homeLocators.cartBlackButton;
+        await cartBlackButton.click();
+    }
+
+    async goToSiteMap(){
+
+        await this.homeLocators.siteMap.click();
     }
 }
