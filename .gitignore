@@ -9,4 +9,4 @@ node_modules/
 /allure-results/
 .env
 /tests/screenshots
-/TestData/authentication.json
+/TestData/auth*.json

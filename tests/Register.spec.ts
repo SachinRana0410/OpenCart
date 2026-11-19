@@ -1,4 +1,4 @@
-import { Page, test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { Register } from "../pages/register";
 import { TestConfig } from "../test.config";
 
