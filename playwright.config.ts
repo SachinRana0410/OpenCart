@@ -32,9 +32,9 @@ export default defineConfig({
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'retain-on-failure',
+    trace: 'on-first-retry',
     screenshot : 'only-on-failure',
-    video:'retain-on-failure',
+    video:'on-first-retry',
     //storageState: "TestData/authentication.json"
   },
 

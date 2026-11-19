@@ -8,3 +8,5 @@ node_modules/
 /playwright/.auth/
 /allure-results/
 .env
+/tests/screenshots
+/TestData/authentication.json
