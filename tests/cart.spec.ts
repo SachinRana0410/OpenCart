@@ -61,7 +61,6 @@ test.describe("Shopping Cart Functionality", () => {
         await cart.clickCartBlackButton();
         if (await cart.isRemoveButtonVisible()) {
             await cart.removeCartItems();
-            await page.waitForTimeout(500);
             await cart.clickCartBlackButton();
         }
 
