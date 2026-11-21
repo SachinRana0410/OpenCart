@@ -1,4 +1,4 @@
-import { expect, test } from "../Fixtures/loginFixture";
+import { expect, test } from "../Fixtures/PageFixture";
 import { LoginPage } from "../pages/LoginPage";
 import { LogoutPage } from "../pages/LogoutPage";
 import { TestConfig } from "../test.config";

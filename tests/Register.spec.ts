@@ -1,23 +1,20 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "../Fixtures/PageFixture";
 import { Register } from "../pages/register";
-import { TestConfig } from "../test.config";
 
 
-let config: TestConfig
+
 test.describe("Register Functionality", async () => {
     
-    test.beforeAll(async () => {
-
-        config = new TestConfig();
-    });
-
+     test.use({storageState:{cookies:[], origins:[]}})
     test("@smoke @functional TC_RG_001 - Register with all the mandatory fields", async ({ page }) => {
-        await page.goto(config.appUrl);
+    
         let register = new Register(page);
         await register.goToRegisterPage();
         await register.fillPersonalDetails();
         await register.fillPasswords();
         await register.clickSubmit();
 
+        // expect(await page.title()).toContain('Your Account Has Been Created');
+        // expect(page.url()).toContain('account/success');
     })
 })

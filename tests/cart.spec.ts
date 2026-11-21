@@ -1,4 +1,4 @@
-import { test, expect } from "../Fixtures/loginFixture";
+import { test, expect } from "../Fixtures/PageFixture";
 import { ProductCatalog } from "../pages/ProductCatalog";
 import { Search } from "../pages/Search";
 import { CartPage } from "../pages/Cart";

@@ -1,3 +1,4 @@
+import { describe } from "node:test";
 import { test, expect } from "../Fixtures/userDataFixture";
 import { LoginPage } from "../pages/LoginPage";
 import { TestConfig } from "../test.config";
@@ -6,7 +7,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 test.describe("Login Functionality", async () => {
+    test.use({storageState:{cookies:[], origins:[]}})
     test("@smoke TC001 - Valid Login", async ({ page }) => {
+        
         let config = new TestConfig();
         let login = new LoginPage(page);
 

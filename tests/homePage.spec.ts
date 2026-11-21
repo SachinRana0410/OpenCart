@@ -10,6 +10,5 @@ test.describe("Home Page validations", async () => {
         await page.goto(config.appUrl);
         expect(await homePage.isHomePageExist()).toBeTruthy();
 
-        await homePage.goToRegisterPage();
     });
 });
