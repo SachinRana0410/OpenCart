@@ -31,7 +31,6 @@ test.describe("Login Functionality", async () => {
         expect(await page.title()).toContain('Account Login');
         expect(page.url()).toContain('account/login');
         expect(failedLoginMsg).toBe('Warning: No match for E-Mail Address and/or Password.');
-        await page.screenshot({ path: 'tests/screenshots/InvalidLogin.png', fullPage: true });
 
     });
 });
