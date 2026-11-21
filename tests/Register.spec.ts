@@ -14,7 +14,7 @@ test.describe("Register Functionality", async () => {
         await register.fillPasswords();
         await register.clickSubmit();
 
-        // expect(await page.title()).toContain('Your Account Has Been Created');
-        // expect(page.url()).toContain('account/success');
+        expect(await page.title()).toContain('Your Account Has Been Created');
+        expect(page.url()).toContain('account/success');
     })
 })
