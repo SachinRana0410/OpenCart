@@ -1,17 +1,14 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "../Fixtures/PageFixture";
 import { ProductCatalog } from "../pages/ProductCatalog";
 import { Search } from "../pages/Search";
-import testData from "../testData/searchData.json"; 
+import testData from "../testData/searchData.json";
 import { TestConfig } from "../test.config";
 
-    test.use({ storageState: "TestData/authentication.json" });
-    test.describe("Add to Cart Functionality", () => {
+test.describe("Add to Cart Functionality", () => {
     let productPage: ProductCatalog;
     let search: Search
 
     test.beforeEach(async ({ page }) => {
-        const config = new TestConfig();
-        await page.goto(config.appUrl);
         productPage = new ProductCatalog(page);
         search = new Search(page);
     });
@@ -24,6 +21,6 @@ import { TestConfig } from "../test.config";
         await expect(productPage.locators.sucessAlert).toContainText(
             `Success: You have added ${productName} to your shopping cart!`
         );
-    
+
     })
-    }); 
+}); 

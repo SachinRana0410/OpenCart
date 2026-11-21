@@ -1,4 +1,4 @@
-import { Page, expect, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { HomePage } from "../pages/HomePage";
 import { TestConfig } from "../test.config";
 
@@ -10,6 +10,5 @@ test.describe("Home Page validations", async () => {
         await page.goto(config.appUrl);
         expect(await homePage.isHomePageExist()).toBeTruthy();
 
-        await homePage.goToRegisterPage();
     });
 });

@@ -1,4 +1,4 @@
-import { test, expect } from "../Fixtures/loginFixture";
+import { test, expect } from "../Fixtures/PageFixture";
 import { ProductCompare } from "../pages/ProductCompare";
 import testData from "../testData/searchData.json";
 

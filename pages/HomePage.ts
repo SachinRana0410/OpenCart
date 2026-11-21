@@ -40,7 +40,7 @@ export class HomePage{
 
     async clickCartBlackButton(){
         const cartBlackButton = this.homeLocators.cartBlackButton;
-        await cartBlackButton.click();
+        await cartBlackButton.click({delay:500});
     }
 
     async goToSiteMap(){

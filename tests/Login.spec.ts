@@ -1,3 +1,4 @@
+import { describe } from "node:test";
 import { test, expect } from "../Fixtures/userDataFixture";
 import { LoginPage } from "../pages/LoginPage";
 import { TestConfig } from "../test.config";
@@ -6,7 +7,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 test.describe("Login Functionality", async () => {
+    test.use({storageState:{cookies:[], origins:[]}})
     test("@smoke TC001 - Valid Login", async ({ page }) => {
+        
         let config = new TestConfig();
         let login = new LoginPage(page);
 
@@ -16,7 +19,7 @@ test.describe("Login Functionality", async () => {
 
         expect(await page.title()).toContain('My Account');
         expect(page.url()).toContain('account/account');
-        await page.context().storageState({ path: 'TestData/authentication.json' });
+        await page.context().storageState({ path: 'TestData/auth.json' });
     });
 
     test("@smoke @negative TC002 - Invalid Login with Fixture", async ({ page, userData }) => {
