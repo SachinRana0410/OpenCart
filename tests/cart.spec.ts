@@ -53,10 +53,7 @@ test.describe('Shopping Cart Functionality', () => {
     expect(await cart.cartLocators.cartHeading.innerText()).toContain('Shopping Cart');
   });
 
-  test('@functional TC_SC_004 Validate the Cart button when there are no products added to the Shopping Cart', async ({
-    request,
-    page,
-  }) => {
+  test('@functional TC_SC_004 Validate the Cart button when there are no products added to the Shopping Cart', async () => {
     await cart.clickCartBlackButton();
     if (await cart.isRemoveButtonVisible()) {
       await cart.removeCartItems();
