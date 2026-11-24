@@ -5,7 +5,7 @@ import { Register } from "../pages/register";
 
 test.describe("Register Functionality", async () => {
     
-     test.use({storageState:{cookies:[], origins:[]}})
+    test.use({storageState:{cookies:[], origins:[]}})
     test("@smoke @functional TC_RG_001 - Register with all the mandatory fields", async ({ page }) => {
     
         let register = new Register(page);

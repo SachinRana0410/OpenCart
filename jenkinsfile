@@ -48,7 +48,7 @@ pipeline {
 		)
 		choice(
 			name: 'WORKERS',
-			choices: ['1', '2', '4'],
+			choices: ['4', '2', '1'],
 			description: 'Number of Playwright workers'
 		)
 	}
