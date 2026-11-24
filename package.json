@@ -4,6 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "quality": "npm run lint && npm run format:check",
     "test:all": "npx playwright test",
     "test:smoke": "npx playwright test --grep @smoke",
     "test:functional": "npx playwright test --grep @functional",
@@ -14,10 +19,16 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@faker-js/faker": "^10.6.0",
     "@playwright/test": "^1.63.0",
     "@types/node": "^26.5.1",
-    "allure-playwright": "^3.14.0"
+    "allure-playwright": "^3.14.0",
+    "eslint": "^10.15.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.14.0",
+    "prettier": "^3.10.1",
+    "typescript-eslint": "^8.74.0"
   },
   "dependencies": {
     "dotenv": "^18.0.9"

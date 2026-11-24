@@ -1,28 +1,24 @@
-import { test, expect } from "../Fixtures/PageFixture";
-import { ProductCompare } from "../pages/ProductCompare";
-import testData from "../testData/searchData.json";
+import { test, expect } from '../Fixtures/PageFixture';
+import { ProductCompare } from '../pages/ProductCompare';
+import testData from '../testData/searchData.json';
 
+test.describe('Product Compare Functionality', () => {
+  let productCompare: ProductCompare;
 
-test.describe("Product Compare Functionality", () => {
+  test.beforeEach(async ({ page }) => {
+    productCompare = new ProductCompare(page);
+  });
 
-    let productCompare: ProductCompare;
+  test('TC-PC-01 - Validate adding the product for comparison from Product Display Page', async () => {
+    const productName = testData.searchProducts.multipleProducts;
 
-    test.beforeEach(async ({ page }) => {
-        productCompare = new ProductCompare(page);
-    });
+    await productCompare.addProductToCompare(productName);
+    await expect(productCompare.productCompareLocators.productCompareLink).toBeVisible();
 
-    test("TC-PC-01 - Validate adding the product for comparison from Product Display Page", async () => {
-
-        const productName = testData.searchProducts.multipleProducts;
-        
-        await productCompare.addProductToCompare(productName);
-        await expect(productCompare.productCompareLocators.productCompareLink).toBeVisible();
-
-        await productCompare.navigateToProductComparePage();
-        await expect(productCompare.productCompareLocators.productCompareHeading).toBeVisible();
-        await expect(productCompare.productCompareLocators.productCompareHeading).toHaveText("Product Comparison");
-
-    });
-
+    await productCompare.navigateToProductComparePage();
+    await expect(productCompare.productCompareLocators.productCompareHeading).toBeVisible();
+    await expect(productCompare.productCompareLocators.productCompareHeading).toHaveText(
+      'Product Comparison',
+    );
+  });
 });
-

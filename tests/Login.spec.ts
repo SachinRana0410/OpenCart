@@ -1,39 +1,34 @@
-import { describe } from "node:test";
-import { test, expect } from "../Fixtures/userDataFixture";
-import { LoginPage } from "../pages/LoginPage";
-import { TestConfig } from "../test.config";
+import { test, expect } from '../Fixtures/userDataFixture';
+import { LoginPage } from '../pages/LoginPage';
+import { TestConfig } from '../test.config';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-test.describe("Login Functionality", async () => {
-    test.use({storageState:{cookies:[], origins:[]}})
-    test("@smoke TC001 - Valid Login", async ({ page }) => {
-        
-        let config = new TestConfig();
-        let login = new LoginPage(page);
+test.describe('Login Functionality', async () => {
+  test.use({ storageState: { cookies: [], origins: [] } });
+  test('@smoke TC001 - Valid Login', async ({ page }) => {
+    const login = new LoginPage(page);
 
-        await page.goto(config.appUrl);
-        await login.goToLoginPage();
-        await login.doLogin();
+    await login.goToLoginPage();
+    await login.doLogin();
 
-        expect(await page.title()).toContain('My Account');
-        expect(page.url()).toContain('account/account');
-        await page.context().storageState({ path: 'TestData/auth.json' });
-    });
+    expect(await page.title()).toContain('My Account');
+    expect(page.url()).toContain('account/account');
+    await page.context().storageState({ path: 'TestData/auth.json' });
+  });
 
-    test("@smoke @negative TC002 - Invalid Login with Fixture", async ({ page, userData }) => {
-        let config = new TestConfig();
-        let login = new LoginPage(page);
+  test('@smoke @negative TC002 - Invalid Login with Fixture', async ({ page, userData }) => {
+    const config = new TestConfig();
+    const login = new LoginPage(page);
 
-        await page.goto(config.appUrl);
-        await login.goToLoginPage();
-        await login.doLogin(userData.email, userData.password+'4');
-        const failedLoginMsg = await login.getFailedLoginMsg();
+    await page.goto(config.appUrl);
+    await login.goToLoginPage();
+    await login.doLogin(userData.email, userData.password + '4');
+    const failedLoginMsg = await login.getFailedLoginMsg();
 
-        expect(await page.title()).toContain('Account Login');
-        expect(page.url()).toContain('account/login');
-        expect(failedLoginMsg).toBe('Warning: No match for E-Mail Address and/or Password.');
-
-    });
+    expect(await page.title()).toContain('Account Login');
+    expect(page.url()).toContain('account/login');
+    expect(failedLoginMsg).toBe('Warning: No match for E-Mail Address and/or Password.');
+  });
 });

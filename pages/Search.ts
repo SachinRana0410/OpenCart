@@ -1,20 +1,18 @@
-import { Page} from "@playwright/test";
-import { search } from "../locators/search";
-
+import { Page } from '@playwright/test';
+import { search } from '../locators/search';
 
 export class Search {
-    readonly locators;
+  readonly locators;
 
-    constructor(page: Page) {
-        this.locators = search(page);
+  constructor(page: Page) {
+    this.locators = search(page);
+  }
+
+  async searchProduct(productName: string = ''): Promise<void> {
+    if (productName) {
+      await this.locators.searchBox.fill(productName);
     }
 
-    async searchProduct(productName: string = ""): Promise<void> {
-        if (productName) {
-            await this.locators.searchBox.fill(productName);
-        }
-
-        await this.locators.searchIcon.click();
-    }
+    await this.locators.searchIcon.click();
+  }
 }
-
