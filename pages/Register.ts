@@ -1,6 +1,7 @@
 import { Page, Locator } from "@playwright/test";
 import { register } from "../locators/register";
 import { HomePage } from "./HomePage";
+import { randomDataUtils } from "../utils/randomDataGenerator";
 
 
 export class Register extends HomePage{
@@ -20,12 +21,11 @@ export class Register extends HomePage{
         return false;
     }
 
-
     async fillPersonalDetails(){
         await this.registerLocators.firstName.fill("Test");
         await this.registerLocators.lastName.fill("Test");
-        await this.registerLocators.email.fill("Test@test.com");
-        await this.registerLocators.phone.fill("Test");
+        await this.registerLocators.email.fill(randomDataUtils.getEmail());
+        await this.registerLocators.phone.fill(randomDataUtils.getPhone());
     }
     async fillPasswords(){
         const password = "Test@123"
