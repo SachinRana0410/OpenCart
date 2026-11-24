@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import { Page } from '@playwright/test';
 import { register } from '../locators/register';
 import { HomePage } from './HomePage';
 import { randomDataUtils } from '../utils/randomDataGenerator';
