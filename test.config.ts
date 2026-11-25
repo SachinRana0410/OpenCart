@@ -1,5 +1,3 @@
 export class TestConfig {
-
-    appUrl: string = "https://tutorialsninja.com/demo/";
-    
+  appUrl: string = 'https://tutorialsninja.com/demo/';
 }
