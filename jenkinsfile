@@ -92,6 +92,18 @@ pipeline {
 			}
 		}
 
+		stage('Code Formatting Check') {
+            steps {
+                sh 'npm run format:check'
+            }
+        }
+
+        stage('ESLint Validation') {
+            steps {
+                sh 'npm run lint'
+            }
+        }
+
 		stage('🤖 Install Playwright Browsers') {
 			steps {
 				sh '''
