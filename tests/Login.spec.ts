@@ -7,10 +7,18 @@ dotenv.config();
 
 test.describe('Login Functionality', async () => {
   test.use({ storageState: { cookies: [], origins: [] } });
-  test('@smoke TC001 - Valid Login', async ({ page }) => {
-    const login = new LoginPage(page);
 
+  let login: LoginPage;
+
+  test.beforeEach(async ({ page }) => {
+    login = new LoginPage(page);
+    const config = new TestConfig();
+
+    await page.goto(config.appUrl);
     await login.goToLoginPage();
+  });
+
+  test('@smoke TC001 - Valid Login', async ({ page }) => {
     await login.doLogin();
 
     expect(await page.title()).toContain('My Account');
@@ -19,11 +27,6 @@ test.describe('Login Functionality', async () => {
   });
 
   test('@smoke @negative TC002 - Invalid Login with Fixture', async ({ page, userData }) => {
-    const config = new TestConfig();
-    const login = new LoginPage(page);
-
-    await page.goto(config.appUrl);
-    await login.goToLoginPage();
     await login.doLogin(userData.email, userData.password + '4');
     const failedLoginMsg = await login.getFailedLoginMsg();
 
