@@ -1,4 +1,4 @@
-import { test as base } from '@playwright/test';
+import { test as base } from './PageFixture';
 import dotenv from 'dotenv';
 dotenv.config();
 

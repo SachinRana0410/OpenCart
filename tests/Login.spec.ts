@@ -1,6 +1,6 @@
 import { test, expect } from '../Fixtures/userDataFixture';
 import { LoginPage } from '../pages/LoginPage';
-import { TestConfig } from '../test.config';
+// import { TestConfig } from '../test.config';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -12,9 +12,6 @@ test.describe('Login Functionality', async () => {
 
   test.beforeEach(async ({ page }) => {
     login = new LoginPage(page);
-    const config = new TestConfig();
-
-    await page.goto(config.appUrl);
     await login.goToLoginPage();
   });
 
